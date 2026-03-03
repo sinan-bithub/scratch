@@ -59,7 +59,7 @@ export function AttendanceChart() {
                                     color: '#fff'
                                 }}
                                 itemStyle={{ color: '#00e1ff' }}
-                                formatter={(value: number) => [`${value}%`, 'Present']}
+                                formatter={(value: any) => [`${value}%`, 'Present']}
                                 labelStyle={{ color: 'rgba(255,255,255,0.5)' }}
                             />
                             <Area
