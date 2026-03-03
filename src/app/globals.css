@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* Colors - Deep Navy / Royal Blue theme */
+  --color-brand-900: #0a0e17; /* Deep Navy Background */
+  --color-brand-800: #12182b;
+  --color-brand-700: #192742;
+  --color-brand-600: #20355b;
+  --color-brand-500: #2b497f; /* Royal Blue */
+  
+  --color-accent-blue: #00e1ff; /* Neon blue accent */
+  --color-accent-glow: rgba(0, 225, 255, 0.4);
+
+  /* Liquid Glass Base Colors */
+  --color-glass-dark: rgba(20, 20, 20, 0.5);
+  --color-glass-light: rgba(255, 255, 255, 0.4);
+  --color-glass-white: rgba(255, 255, 255, 0.08);
+
+  /* Custom Animations and timings */
+  --animate-lava-flow: lava-flow 8s ease-in-out infinite alternate;
+  --animate-float: float 6s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+}
+
+@layer utilities {
+  .liquid-glass {
+    @apply bg-white/5 backdrop-blur-[24px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.0) 100%);
+  }
+
+  .liquid-glass-card {
+    @apply bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl;
+  }
+}
+
+@keyframes lava-flow {
+  0% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: rotate(0deg) scale(1.0);
+  }
+  50% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: rotate(360deg) scale(1.0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+:root {
+  --background: #0a0e17; /* brand-900 */
+  --foreground: #ffffff;   
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove default scrollbars for mobile web app feel */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

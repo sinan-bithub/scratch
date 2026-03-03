@@ -1,0 +1,124 @@
+import { LiquidCard } from "@/components/ui/LiquidCard";
+import { CalendarDays, MapPin, Clock, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export default function ParentSchedule() {
+    const scheduleItems = [
+        {
+            type: "training",
+            title: "Tactical Drill: High Press",
+            time: "16:30 - 18:00",
+            location: "Pitch A (Main)",
+            team: "U18 Academy",
+        },
+        {
+            type: "match",
+            title: "Match vs. City Academy",
+            time: "Saturday, 10:00 AM",
+            location: "Away Stadium",
+            team: "U18 Academy",
+            isNext: true,
+        },
+        {
+            type: "training",
+            title: "Recovery & Video Review",
+            time: "Sunday, 09:00 AM",
+            location: "Film Room B",
+            team: "U18 Academy",
+        }
+    ];
+
+    return (
+        <main className="flex flex-col h-full w-full animate-float pb-24" style={{ animationDuration: '15s' }}>
+
+            {/* Header */}
+            <div className="pt-4 pb-6 px-1 flex justify-between items-end">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Schedule</h1>
+                    <p className="text-white/60 text-sm">Tyler's upcoming events.</p>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.4)] cursor-pointer hover:bg-emerald-500/30 transition-colors">
+                    <CalendarDays className="w-5 h-5" />
+                </div>
+            </div>
+
+            {/* Context Switcher Mock */}
+            <div className="mb-6 px-1">
+                <LiquidCard className="py-2 px-3 flex items-center justify-between border-dashed border-white/20">
+                    <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-[10px] font-bold">T</div>
+                        <span className="text-xs text-white/70 font-medium">Viewing Tyler Player</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-white/30" />
+                </LiquidCard>
+            </div>
+
+            {/* Date Picker Ribbon (Static Mock) */}
+            <div className="flex gap-3 overflow-x-auto pb-4 mb-2 hide-scrollbar px-1">
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, i) => (
+                    <div
+                        key={day}
+                        className={cn(
+                            "flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-2xl border backdrop-blur-md transition-all cursor-pointer",
+                            i === 0
+                                ? "bg-emerald-500/20 border-emerald-500/50 text-white shadow-[0_0_15px_rgba(52,211,153,0.3)]"
+                                : "bg-white/5 border-white/10 text-white/50 hover:bg-white/10"
+                        )}
+                    >
+                        <span className="text-xs uppercase font-semibold mb-1">{day}</span>
+                        <span className={cn("text-xl font-bold", i === 0 && "text-emerald-400")}>{12 + i}</span>
+                    </div>
+                ))}
+            </div>
+
+            {/* Timeline List */}
+            <div className="flex flex-col gap-4 relative">
+
+                {/* Vertical Timeline Track */}
+                <div className="absolute left-[20px] top-4 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-white/10 to-transparent z-0" />
+
+                {scheduleItems.map((item, idx) => (
+                    <div key={idx} className="relative z-10 pl-12 pr-1">
+                        {/* Timeline Marker */}
+                        <div className={cn(
+                            "absolute left-[13px] top-6 w-4 h-4 rounded-full border-2 border-[#0a0e17] z-20 shadow-[0_0_10px_rgba(0,0,0,0.5)]",
+                            item.type === "match" ? "bg-accent-blue shadow-[0_0_12px_rgba(0,225,255,0.8)]" : "bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]"
+                        )} />
+
+                        <LiquidCard className={cn(
+                            "p-4 relative overflow-hidden group border",
+                            item.isNext ? "border-emerald-500/40 shadow-[0_0_20px_rgba(52,211,153,0.1)]" : "border-white/10"
+                        )}>
+                            {item.isNext && (
+                                <div className="absolute top-0 right-0 bg-emerald-500 text-[#0a0e17] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-bl-xl shadow-[0_0_10px_rgba(52,211,153,0.5)] z-10">
+                                    Up Next
+                                </div>
+                            )}
+
+                            {/* Hover Flare */}
+                            <div className={cn(
+                                "absolute -right-8 -top-8 w-32 h-32 blur-2xl rounded-full transition-all duration-500 pointer-events-none group-hover:opacity-100",
+                                item.type === "match" ? "bg-accent-blue/10 opacity-0" : "bg-emerald-500/10 opacity-0"
+                            )} />
+
+                            <h3 className="font-bold text-lg text-white tracking-tight mb-3 pr-16">{item.title}</h3>
+
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center gap-2 text-white/70 text-sm">
+                                    <Clock className="w-4 h-4 text-white/40" />
+                                    <span>{item.time}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-white/70 text-sm">
+                                    <MapPin className="w-4 h-4 text-white/40" />
+                                    <span>{item.location}</span>
+                                </div>
+                            </div>
+                        </LiquidCard>
+                    </div>
+                ))}
+
+            </div>
+
+        </main>
+    );
+}
